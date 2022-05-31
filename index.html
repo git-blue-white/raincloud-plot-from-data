@@ -1,0 +1,214 @@
+<html>
+    <head>
+        <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/lit-web"></script>
+        <script src="https://unpkg.com/mathjs@10.6.0/lib/browser/math.js"></script>
+        <link type="text/css" href="style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <main>
+        </main>
+        <table class="center">
+            <tr>
+                <th>Minimum</th>
+                <th>First Quartile</th> 
+                <th>Median</th>
+                <th>Mean</th>
+                <th>Third Quartile</th>
+                <th>Maximum</th>
+            </tr>
+            <tr id="valueTable">
+            </tr>
+        </table>
+    </body>
+    <script>
+        dataA = [14.7759012421443,10.8248412247281,9.76027109092072,9.61207321481511,11.599318889277,8.25429117758146,15.5470584033656,12.5114686142163,6.10244108790052,2.25135913086221,11.5056776478418,10.4867395608278,2.53390863900263,11.5863204641695,7.60492422180415,13.2952059058584,7.79683811664429,5.02726621346803,13.1907035117294,10.8888189326504,7.71029058522535,16.3219853971736,9.13609320042443,10.382164820286,11.4680069253547,6.97961946069175,10.3540245775749,10.7139714252844,7.90286167858113,5.63983251735225,13.3084480861438,12.0105622535163,15.1609265474016,4.11627635363927,9.55770601874797,12.7795085090935,10.7284967449592,5.43162711253657,11.2864130643428,7.04946613506764,14.6399415174702,12.7430487887335,11.8018049551097,12.1614149326505,13.4674363913517,6.57902334979885,6.9880635963696,13.3217657542613,9.88559578727144,13.1552463847855,13.3339207764131,6.9191022756741,13.6516905843254,10.4892100479044,9.07825269193049,9.83954251025184,8.76279273291159,10.4104340414645,9.79017255091931,4.06261795129103,4.01904848620404,15.2170155510508,12.5050193391449,6.35931911898853,5.93436647471174,7.04206656529691,10.3016953759529,14.3227966049662,10.3092189290817,8.20556475685734,12.2780629700513,4.0835145801238,13.989553497666,14.2927734493386,8.13885684016627,9.53685659452813,7.83261587366065,7.14832760846899,13.7275516694828,14.8083220858404,10.2797636673653,7.61826679347738,11.2363964151368,7.90345802159296,10.5004892944716,11.5042016769116,8.16818251867544,11.1745816266082,10.435619046913,13.3908152382371,7.54594830198987,9.06075288473956,17.6215878252358,16.5477681481304,11.3039074741917,7.36630551619025,10.0157714319423,13.6948670072172,7.67210736017941,11.6759668153893];
+        dataB = [19.8734350390429,16.1185515770085,13.6185311128566,18.6959823987908,15.4163590834212,14.4539410684632,23.4807453017259,15.7224210771588,8.13080892789884,21.5397420914248,20.2352690976788,30.8112441723418,15.8926213590261,24.0470015932513,31.8393306649901,16.0778541022075,12.7078979516139,24.1718818892117,18.1025461184627,26.045977418223,13.6597786940472,20.1293247961586,24.5356341778909,22.8796724215769,21.0181547470699,3.1467024774355,19.211849481346,17.0560330355146,18.5609930733553,18.8438215592839,22.6344155603875,27.4589034062871,19.8503005317766,20.5296705109038,21.7082962065677,20.5519832971519,17.1396111430538,12.6021870387469,20.7468817955418,23.5269053492743,11.5676624406082,22.4977431382651,23.0848417524296,19.8272926035458,27.6822175361523,19.1396304967916,23.5314747521582,25.0573336357345,23.8728140533754,13.5582464543338,14.7401446375267,10.1718611395164,11.703387657929,16.6286176593094,18.2395230977562,21.5093210579267,25.9533818491945,25.7062704982066,12.6712223510289,15.2460504422204,11.3261294883631,20.4453975643802,11.6337581949128,22.4842676889741,20.7557445751965,21.9265370881396,22.2839670577666,7.71520877138532,26.202020207457,14.9250234736773,16.0685382876027,20.2451737346251,19.8662566654222,25.5549797738844,13.0716677968679,26.1665634080902,20.1685133444777,17.318927215598,9.52598904724951,16.3202292469448,20.3255672463292,17.6374282404321,23.607197798405,26.7630078824615,20.0380436094838,19.072271220783,20.8197997363257,26.2621164682638,14.6301882436368,20.4579358887924,23.8508847434277,32.8130156145532,20.2176195194656,18.9839656597612,16.2804420956517,30.8337319950768,24.8605021652942,19.123565914748,24.3706683875125,23.7217965475958];
+        dataC = [16.8948340473662,9.89177885805016,27.6251350668759,20.1555688070395,18.6094954253431,19.9937604175584,12.8873326552604,19.1561242600677,14.3812659102114,7.87534507379927,15.8019037620249,13.9206667046963,19.4784351462896,15.6761684349392,13.5286191613141,16.5161486211608,16.3766377931011,14.8516886194843,16.9645988814968,24.2864197372364,12.3544907911147,19.4068318393784,14.1941969516883,24.1007029941509,12.8959292240884,21.3994789419019,19.9089854208173,13.6545435002288,17.6984211737681,13.9239440211555,9.07618990730142,15.6166169517366,10.5159166987671,14.5675045500848,20.7693893655681,18.2062832985304,16.9235269272234,11.9133788310907,12.7000527462842,14.9524957301854,14.3985217967278,17.4740006668609,16.6892127487475,17.247781865877,22.7507377690881,9.04194094634943,14.2816192665401,21.2833919409692,20.4610519234564,26.6186621717017,19.1524919627656,8.78171107789057,15.6792092321575,16.4896343535124,17.5610477860737,9.80031073327573,20.7664239349977,11.1607569815413,17.9743536739778,9.65623887403759,18.2150959635115,11.7333096352544,10.3649010286651,25.2260712617564,12.4191774546753,17.0828283609293,15.4289186153039,14.8014210019884,15.3406465234187,12.1369441040787,19.4730096941067,14.4196838660337,15.3168879357732,9.03906096995538,7.00761209843422,17.6070297177076,10.897494634719,14.4985700683097,20.7519105362187,10.6820469110643,8.48367905633942,16.1566888342386,20.6570919611989,8.91416329699056,11.4775579710419,11.4211740167423,15.4477156434659,10.86714370904,17.9990106506341,25.8695054899467,7.24174260900329,9.64275954205093,11.3654565755089,13.303878764532,13.1407072331107,15.5551883221745,19.9832110742161,17.8686735808141,25.1715485893884,5.81373382113264];
+        (() => {
+            const height = 450
+            const total_width = window.innerWidth
+            const grid = 10
+            const margin = {
+            top: grid * 4,
+            right: grid,
+            bottom: grid,
+            left: grid
+        }
+        const width = total_width - margin.left - margin.right
+        const segment = height * 0.25
+        const size = segment * 0.5
+
+        const raincloud = (selection, data) => {
+        selection
+            .call(curve, data)
+            .call(dots, data)
+            .call(boxplot, data)
+        }
+
+        const curve = (selection, data) => {
+            const histogram = d3.histogram()
+                .thresholds(20)
+                (data)
+                .map(bin => bin.length)
+            const x = d3.scaleLinear()
+                .domain([0, histogram.length])
+                .range([0, width])
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(histogram)])
+                .range([size, 0])
+            const area = d3.area()
+                .y0(y)
+                .y1(size)
+                .x((d, i) => x(i))
+                .curve(d3.curveBasis)
+            selection.append('g')
+                .classed('curve', true)
+                .datum(histogram)
+                .append('path')
+                .attr('d', area)
+        }
+
+        const boxplot = (selection, datareq) => {
+            
+            const data = datareq
+                .sort(d3.ascending)
+            const bar = grid
+            const x = d3.scaleLinear()
+                .domain(d3.extent(data))
+                .range([0, width])
+            const plot = selection
+                .append('g')
+                .classed('boxplot', true)
+                .attr('transform', `translate(0,${segment * 0.75 - grid})`)
+            plot
+                .append('line')
+                .attr('x1', x(d3.quantile(data, 0.5)))
+                .attr('x2', x(d3.quantile(data, 0.5)))
+                .attr('y1', 0)
+                .attr('y2', bar)
+            plot
+                .append('line')
+                .attr('x1', x(d3.quantile(data, 0.1)))
+                .attr('x2', x(d3.quantile(data, 0.25)))
+                .attr('y1', bar * 0.5)
+                .attr('y2', bar * 0.5)
+            plot
+                .append('line')
+                .attr('x1', x(d3.quantile(data, 0.9)))
+                .attr('x2', x(d3.quantile(data, 0.75)))
+                .attr('y1', bar * 0.5)
+                .attr('y2', bar * 0.5)
+            plot.append('rect')
+                .attr('x', x(d3.quantile(data, 0.25)))
+                .attr('y', 0)
+                .attr('height', bar)
+                .attr('width', x(d3.quantile(data, 0.75)) - x(d3.quantile(data, 0.25)))
+        }
+
+        const dots = (selection, data) => {
+            const x = d3.scaleLinear()
+                .domain(d3.extent(data))
+                .range([0, width])
+            selection
+                .append('g')
+                .classed('dots', true)
+                .attr('transform', `translate(0,${segment * 0.5 + grid})`)
+                .selectAll('circle')
+                .data(data)
+                .enter()
+                .append('circle')
+                .attr('r', 2)
+                .attr('cx', x)
+                .attr('cy', () => Math.random() * size * 0.5)
+        }
+
+        const dom = selection => {
+            selection
+                .append('svg')
+                .attr('height', height)
+                .attr('width', width)
+        }
+
+
+        const svg = d3.select('main')
+        .call(dom)
+        .select('svg')
+        
+        svg
+            .append('g')
+            .classed('raincloud', true)
+            .attr('transform', `translate(${margin.left},${0 * segment + margin.top})`)
+            .attr('id', 'plotA')
+            .call(raincloud, dataA)
+        svg
+            .append('g')
+            .classed('raincloud', true)
+            .attr('transform', `translate(${margin.left},${1 * segment + margin.top})`)
+            .attr('id', 'plotB')
+            .call(raincloud, dataB)
+        svg
+            .append('g')
+            .classed('raincloud', true)
+            .attr('transform', `translate(${margin.left},${2 * segment + margin.top})`)
+            .attr('id', 'plotC')
+            .call(raincloud, dataC)
+        })()
+        plotA = document.getElementById('plotA');
+        plotA.addEventListener('click', () => {
+            const arrdata = dataA;
+            const min = math.min(arrdata);
+            const median = math.median(arrdata);
+            const mean = math.mean(arrdata);
+            const max =math.max(arrdata);
+            const fquartile = math.quantileSeq(arrdata, 0.25);
+            const tquartile = math.quantileSeq(arrdata, 0.75);
+            const tabletext = 
+                `<td>${min}</td>
+                <td>${fquartile}</td>
+                <td>${median}</td>
+                <td>${mean}</td>
+                <td>${tquartile}</td>
+                <td>${max}</td>`;
+            document.getElementById('valueTable').innerHTML = tabletext;
+        })
+
+        plotB = document.getElementById('plotB');
+        plotB.addEventListener('click', () => {
+            const arrdata = dataB;
+            const min = math.min(arrdata);
+            const median = math.median(arrdata);
+            const mean = math.mean(arrdata);
+            const max =math.max(arrdata);
+            const fquartile = math.quantileSeq(arrdata, 0.25);
+            const tquartile = math.quantileSeq(arrdata, 0.75);
+            const tabletext = 
+                `<td>${min}</td>
+                <td>${fquartile}</td>
+                <td>${median}</td>
+                <td>${mean}</td>
+                <td>${tquartile}</td>
+                <td>${max}</td>`;
+            document.getElementById('valueTable').innerHTML = tabletext;
+        })
+
+        plotC = document.getElementById('plotC');
+        plotC.addEventListener('click', () => {
+            const arrdata = dataC;
+            const min = math.min(arrdata);
+            const median = math.median(arrdata);
+            const mean = math.mean(arrdata);
+            const max =math.max(arrdata);
+            const fquartile = math.quantileSeq(arrdata, 0.25);
+            const tquartile = math.quantileSeq(arrdata, 0.75);
+            const tabletext = 
+                `<td>${min}</td>
+                <td>${fquartile}</td>
+                <td>${median}</td>
+                <td>${mean}</td>
+                <td>${tquartile}</td>
+                <td>${max}</td>`;
+            document.getElementById('valueTable').innerHTML = tabletext;
+        })
+    </script>
+</html>
