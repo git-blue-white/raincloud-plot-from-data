@@ -10,6 +10,7 @@
         </main>
         <table class="center">
             <tr>
+                <th style = "width: 10%;">Group Name</th>
                 <th>Minimum</th>
                 <th>First Quartile</th> 
                 <th>Median</th>
@@ -164,7 +165,8 @@
             const fquartile = math.quantileSeq(arrdata, 0.25);
             const tquartile = math.quantileSeq(arrdata, 0.75);
             const tabletext = 
-                `<td>${min}</td>
+                `<td>Group A</td>
+                <td>${min}</td>
                 <td>${fquartile}</td>
                 <td>${median}</td>
                 <td>${mean}</td>
@@ -183,7 +185,8 @@
             const fquartile = math.quantileSeq(arrdata, 0.25);
             const tquartile = math.quantileSeq(arrdata, 0.75);
             const tabletext = 
-                `<td>${min}</td>
+                `<td>Group B</td>
+                <td>${min}</td>
                 <td>${fquartile}</td>
                 <td>${median}</td>
                 <td>${mean}</td>
@@ -202,7 +205,8 @@
             const fquartile = math.quantileSeq(arrdata, 0.25);
             const tquartile = math.quantileSeq(arrdata, 0.75);
             const tabletext = 
-                `<td>${min}</td>
+                `<td>Group C</td>
+                <td>${min}</td>
                 <td>${fquartile}</td>
                 <td>${median}</td>
                 <td>${mean}</td>
