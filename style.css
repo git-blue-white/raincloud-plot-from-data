@@ -52,6 +52,7 @@ table {
 }
   
 th, td {
+    width: 16.6666666%;
     border-collapse: collapse;
     border: 1px solid #ddd;
     text-align: center;
